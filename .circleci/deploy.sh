@@ -7,7 +7,7 @@ git config --global user.name "goodjob team (via CI)"
 
 # Prepare the workspace
 rm -rf _public
-git clone git@github.com:goodjoblife/LaborUnion.git _public -b gh-pages --depth 1
+git clone git@github.com:goodjoblife/check-in-frontend.git _public -b gh-pages --depth 1
 
 # Remove all the old build files
 rm -rf _public/*
