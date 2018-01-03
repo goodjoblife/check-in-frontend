@@ -23,6 +23,7 @@ const StyledRectangle = styled.a`
         background-color: #FCD406;
         border-color: black;
         color: black;
+        text-decoration: none;
         cursor: ${props => props.href ? 'pointer': 'initial' };
         svg path {
             fill: black;

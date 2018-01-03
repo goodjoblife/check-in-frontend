@@ -17,6 +17,7 @@ const StyledButton = styled.a`
         border-color: black;
         color: black;
         cursor: pointer;
+        text-decoration: none;
     }
 `;
 
