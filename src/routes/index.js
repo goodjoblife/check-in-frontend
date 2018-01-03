@@ -8,6 +8,6 @@ import CheckInList from './CheckInList';
 export default (
   <Route component={Root}>
     <Route path="/" component={TotalWorkingTime} />
-    <Route path="/check-ins" component={CheckInList} />
+    <Route path="/check-ins/:key" component={CheckInList} />
   </Route>
 );
