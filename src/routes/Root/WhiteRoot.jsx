@@ -5,12 +5,14 @@ import Header from '../../components/Header.component';
 import Footer from '../../components/Footer.component';
 
 const Root = ({ children }) => (
-    <StyledRoot>
-        <Header />
-        <div className="main">
-            {children}
+    <StyledRoot theme="white">
+        <div className="body-container">
+            <Header />
+            <div className="content-container">
+                {children}
+            </div>
+            <Footer />
         </div>
-        <Footer />
     </StyledRoot>
 );
 

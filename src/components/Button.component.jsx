@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const StyledButton = styled.a`
     border: 1px solid #FCD406;
-    color: #FCD406;
-    background-color: black;
+    color: #222;
+    background-color: #FCD406;
     border-radius: 0;
     padding: 15px 25px;
     font-size: 18px;
@@ -13,9 +13,9 @@ const StyledButton = styled.a`
     transition: color 0.25s ease;
     text-decoration: none;
     &:hover {
-        background-color: #FCD406;
-        border-color: black;
-        color: black;
+        background-color: #222;
+        border-color: #FCD406;
+        color: #FCD406;
         cursor: pointer;
         text-decoration: none;
     }

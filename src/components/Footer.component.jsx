@@ -5,9 +5,16 @@ import BlankLink from './BlankLink.component';
 import goodjobLogo from '../assets/goodjob-and-name.png';
 
 const StyledFooter = styled.div`
+    background-color: #222;
     border-top: 1px solid #FCD406;
     padding-top: 15px;
     text-align: center;
+    span {
+        color: white;
+    }
+    .item {
+        margin-bottom: 10px;
+    }
     .item a {
         color: white;
         cursor: pointer;
@@ -27,7 +34,7 @@ const StyledFooter = styled.div`
         height: 30px;
     }
     .powered-by {
-        vertical-align: super;
+        vertical-align: middle;
     }
 `;
 

@@ -21,15 +21,15 @@ const StyledRectangle = styled.a`
     transition: color 0.25s ease;
     &:hover {
         background-color: #FCD406;
-        border-color: black;
-        color: black;
+        border-color: #222;
+        color: #222;
         text-decoration: none;
         cursor: ${props => props.href ? 'pointer': 'initial' };
         svg path {
-            fill: black;
+            fill: #222;
         }
         p {
-            color: black;
+            color: #222;
         }
     }
     .rec-icon {

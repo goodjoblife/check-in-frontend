@@ -7,12 +7,14 @@ import Button from './Button.component';
 import { MEDIA } from '../constants/style.constant';
 
 const StyledHeader = styled.div`
+    background-color: #222;
+    box-shadow: 0 0 8px rgba(0,0,0,.11);
+    font-weight: 300;
     border-bottom: 1px solid #FCD406;
     position: fixed;
     top: 0;
     width: 100%;
     height: 65px;
-    background-color: black;
     z-index: 10000;
     @media (max-width: ${MEDIA.SM_MAX}px) {
         height: 55px;

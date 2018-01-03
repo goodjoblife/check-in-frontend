@@ -1,19 +1,15 @@
 import styled from 'styled-components';
 
 const StyledMain = styled.div`
-
-    background-color: black;
+    background-color: #222;
     color: white;
-    .main {
-        max-width: 1100px;
-        margin: auto;
-        padding: 0 50px;
-    }
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 50px;
 
     .title {
         color: #fcd406;
         text-align: center;
-        margin-top: 100px;
         margin-bottom: 60px;
     }
 

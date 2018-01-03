@@ -1,8 +1,12 @@
 body {
   margin: 0px;
   padding: 0px;
-  background-color: black;
   font-family: "PingFang TC", "Helvetica Neue", Helvetica, Arial, "微軟正黑體", "Microsoft JhengHei", sans-serif;
+  font-weight: 400;
+  color: #444;
+  font-size: 16px;
+  overflow-x: hidden;
+  background-color: #f9f9f9;
 }
 
 h2, h3 {
