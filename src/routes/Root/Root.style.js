@@ -6,7 +6,7 @@ const StyledRoot = styled.div`
     }
     .content-container {
         max-width: 1100px;
-        min-height: 500px;
+        min-height: 750px;
         margin: auto;
         padding-top: 75px;
     }

@@ -43,7 +43,6 @@ class CheckInList extends React.Component {
                         <th> 起始時間 </th>
                         <th> 結束時間 </th>
                         <th> 功德量 </th>
-                        <th> 詳細資訊 </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,10 +60,9 @@ class CheckInList extends React.Component {
         const endTime = new Date(checkIn.endTime);
         return (
             <tr key={key}>
-                <td>{formatDate(startTime)}<br />{formatTime(startTime)}</td>
-                <td>{formatDate(endTime)}<br />{formatTime(endTime)}</td>
+                <td>{formatDate(startTime)} {formatTime(startTime)}</td>
+                <td>{formatDate(endTime)} {formatTime(endTime)}</td>
                 <td>{formatDuration(calcTime(endTime - startTime))}</td>
-                <td><button> 詳細資訊 </button></td>
             </tr>
         );
     }
@@ -72,7 +70,7 @@ class CheckInList extends React.Component {
     render() {
         return (
             <StyledCheckInList>
-                <h2> 查看我的功德 </h2>
+                <h1 className="title"> 查看我的功德 </h1>
                 {this.renderCheckInTable(this.state.checkIns)}
             </StyledCheckInList>
         );

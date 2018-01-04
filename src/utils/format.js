@@ -9,7 +9,7 @@ export function formatDate(date) {
     const yyyy = date.getFullYear();
     const mm = date.getMonth() + 1;
     const dd = date.getDate();
-    return `${yyyy} 年 ${mm} 月 ${dd} 日`;
+    return `${yyyy}/${mm}/${dd}`;
 }
 
 export function formatTime(date) {
