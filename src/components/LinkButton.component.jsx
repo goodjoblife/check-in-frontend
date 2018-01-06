@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+const StyledLinkButton = styled.a`
     border: 1px solid #FCD406;
     color: #222;
     background-color: #FCD406;
     border-radius: 0;
-    padding: 0 25px;
+    padding: 15px 25px;
     font-size: 18px;
     font-weight: 500;
     transition: background-color 0.75s ease;
@@ -21,15 +21,18 @@ const StyledButton = styled.button`
     }
 `;
 
-const Button = ({ onClick, children, className }) => {
+const LinkButton = ({ href, alt, children, className }) => {
     return (
-        <StyledButton
-            onClick={onClick}
+        <StyledLinkButton
+            href={href}
+            alt={alt}
             className={className}
+            target="_blank"
+            rel="noopener noreferrer"
         >
             {children}
-        </StyledButton>
+        </StyledLinkButton>
     );
 };
 
-export default Button;
+export default LinkButton;

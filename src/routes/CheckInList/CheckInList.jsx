@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import Button from '../../components/Button.component';
+
 import {
     formatDate,
     formatTime,
@@ -103,21 +105,28 @@ class CheckInList extends React.Component {
     renderMenuBar() {
         return (
             <div className="menu-bar">
-                起始日：
-                <input
-                    type="date"
-                    name="start-date"
-                    value={this.state.startDate}
-                    onChange={(event) => { this.setState({ startDate: event.target.value }) }}
-                />
-                結算日：
-                <input
-                    type="date"
-                    name="end-date"
-                    value={this.state.endDate}
-                    onChange={(event) => { this.setState({ endDate: event.target.value }) }}
-                />
-                <button onClick={this.getCheckIns}>查詢</button>
+                <div className="date-container">
+                    <div className="start-date date-picker">
+                        <label>起始日：</label>
+                        <input
+                            type="date"
+                            name="start-date"
+                            value={this.state.startDate}
+                            onChange={(event) => { this.setState({ startDate: event.target.value }) }}
+                        />
+
+                    </div>
+                    <div className="end-date date-picker">
+                        <label>結算日：</label>
+                        <input
+                            type="date"
+                            name="end-date"
+                            value={this.state.endDate}
+                            onChange={(event) => { this.setState({ endDate: event.target.value }) }}
+                        />
+                    </div>
+                </div>
+                <Button className="search-btn" onClick={this.getCheckIns}>查詢</Button>
             </div>
         )
     }
@@ -125,21 +134,23 @@ class CheckInList extends React.Component {
     renderCheckInTable(checkIns) {
         if (!checkIns) { return null; }
         return (
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th> 起始時間 </th>
-                        <th> 結束時間 </th>
-                        <th> 功德量 </th>
-                        <th> 加班費 </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {checkIns.map((checkIn, index) => {
-                        return this.renderCheckInRow(checkIn, index);
-                    })}
-                </tbody>
-            </table>
+            <div className="section">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th> 起始時間 </th>
+                            <th> 結束時間 </th>
+                            <th> 功德量 </th>
+                            <th> 加班費 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {checkIns.map((checkIn, index) => {
+                            return this.renderCheckInRow(checkIn, index);
+                        })}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 
@@ -156,13 +167,13 @@ class CheckInList extends React.Component {
         );
     }
 
-    renderSalaryButton(value, text) {
+    renderSalaryTypeButton(value, text) {
         return (
-            <span>
+            <div className={`radio-button ${this.state.salaryType === value ? 'checked' : ''}`}>
                 <label htmlFor={`salary-type-${value}`}> {text} </label>
                 <input
                     id={`salary-type-${value}`}
-                    className="btn btn-default"
+                    className="btn btn-default salary-btn"
                     name="salary-type"
                     type="radio"
                     value={value}
@@ -170,31 +181,39 @@ class CheckInList extends React.Component {
                     onChange={this.handleSalaryButton}
                 >
                 </input>
-            </span>
+            </div>
         );
     }
 
     renderSalarySection() {
         return (
-            <div className="salary-section">
-                <span> 請輸入你的底薪以計算加班費：</span>
-                {this.renderSalaryButton('month', '月薪')}
-                {this.renderSalaryButton('day', '日薪')}
-                {this.renderSalaryButton('hour', '時薪')}
+            <div className="salary-section form-group flex flex-align-center flex-space-between">
+                <div className="flex flex-align-center">
+                <label> 請輸入你的底薪以計算加班費：</label>
+                {this.renderSalaryTypeButton('month', '月薪')}
+                {this.renderSalaryTypeButton('day', '日薪')}
+                {this.renderSalaryTypeButton('hour', '時薪')}
                 <input
                     type="number"
                     min="0"
                     value={this.state.salary}
                     onChange={(e) => this.setState({ salary: e.target.value })}
-                />元
-                <span>每小時工資：</span><span>{this.calcHourlyWage()}</span>
+                />
+                <span className="money-unit">元</span>
+                </div>
+                <div>
+                    <label>每小時工資：</label><span>{this.calcHourlyWage()}</span>
+                </div>
             </div>
         )
     }
 
     renderWeekDayButton(name, value, text, field) {
         return (
-            <span key={`${name}${value}`}>
+            <div
+                key={`${name}${value}`}
+                className={`radio-button ${this.state[field] === value ? 'checked' : ''}`}
+            >
                 <label htmlFor={`${name}${value}`}> {text} </label>
                 <input
                     id={`${name}${value}`}
@@ -206,7 +225,7 @@ class CheckInList extends React.Component {
                     onChange={this.handleWeekDayButton(field)}
                 >
                 </input>
-            </span>
+            </div>
         );
     }
 
@@ -215,13 +234,13 @@ class CheckInList extends React.Component {
         const dayNum = ['1', '2', '3', '4', '5', '6', '0'];
         return (
             <div>
-                <span>請設定你的休息日、例假日：</span>
-                <div>
-                    <span>例假日：</span>
+                <label className="form-group">請設定你的休息日、例假日：</label>
+                <div className="flex flex-align-center">
+                    <label>例假日：</label>
                     {dayNum.map((n, index) => (this.renderWeekDayButton('routine-day-off', n, dayChar[index], 'routineDayOff')))}
                 </div>
-                <div>
-                    <span>休息日：</span>
+                <div className="flex flex-align-center">
+                    <label>休息日：</label>
                     {dayNum.map((n, index) => (this.renderWeekDayButton('rest-day-off', n, dayChar[index], 'restDayOff')))}
                 </div>
             </div>
@@ -234,9 +253,15 @@ class CheckInList extends React.Component {
                 <h1 className="title"> 查看我的功德 </h1>
                 {this.renderMenuBar()}
                 {this.renderCheckInTable(this.state.checkIns)}
-                {this.renderSalarySection()}
-                {this.renderDayOffSection()}
-                <button className="btn btn-default" onClick={this.calcOverTimeSalary}>重新計算加班費</button>
+
+                <h4>加班費試算設定</h4>
+                <div className="setting-section section">
+                    {this.renderSalarySection()}
+                    {this.renderDayOffSection()}
+                    <div className="flex calc-container">
+                        <Button className="btn btn-default" onClick={this.calcOverTimeSalary}>重新計算加班費</Button>
+                    </div>
+                </div>
             </StyledCheckInList>
         );
     }

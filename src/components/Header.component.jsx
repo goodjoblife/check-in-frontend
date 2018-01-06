@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from './Button.component';
+import LinkButton from './LinkButton.component';
 // import logo from '../assets/logo.jpg';
 
 import { MEDIA } from '../constants/style.constant';
@@ -66,7 +66,7 @@ const Header = () => {
         <StyledHeader>
             <div className="header-container">
                 {/*<a href="/"><img src={logo} className="header-logo" alt="GoodJob 全民組工會"></img></a>*/}
-                <Button href="https://goo.gl/forms/eZIWeCtAFCV7aR7G2" alt="馬上開始使用" className="cta-button"> 馬上開始使用 </Button>
+                <LinkButton href="https://goo.gl/forms/eZIWeCtAFCV7aR7G2" alt="馬上開始使用" className="cta-button"> 馬上開始使用 </LinkButton>
             </div>
         </StyledHeader>
     );
