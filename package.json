@@ -14,8 +14,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "unit": "react-scripts test --env=jsdom --testPathPattern='/src/'",
+    "test": "yarn unit",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://goodjoblife.github.io/check-in-frontend/"
+  "homepage": "https://goodjoblife.github.io/check-in-frontend/",
+  "devDependencies": {
+    "mocha": "^4.1.0"
+  }
 }
