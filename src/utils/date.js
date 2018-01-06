@@ -8,6 +8,15 @@ export function calcTime(ms) {
     return { hrs, mins, secs };
 }
 
+/**
+ * get time difference in { hrs, mins, secs } format
+ * @param {Date} startTime starting time
+ * @param {Date} endTime ending time
+ */
+export function calcTimeDiff(startTime, endTime) {
+    return calcTime(startTime.getTime() - endTime.getTime());
+}
+
 // convert yyyy-MM-mm to { year, month, day }
 export function parseDate(dateStr) {
     let arr = dateStr.split('-').map(v => parseInt(v, 10));
