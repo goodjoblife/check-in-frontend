@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import LinkButton from './LinkButton.component';
-// import logo from '../assets/logo.jpg';
+import logo from '../assets/logo-and-name.png';
 
 import { MEDIA } from '../constants/style.constant';
 
@@ -33,14 +33,9 @@ const StyledHeader = styled.div`
         }
         .header-logo {
             padding: 10px 0;
-            height: 45px;
+            height: 65px;
             @media (max-width: ${MEDIA.SM_MAX}px) {
-                height: 25px;
-                padding: 15px 0;
-            }
-            @media (max-width: ${MEDIA.XS_MAX}px) {
-                height: 20px;
-                padding: 18px 0;
+                height: 55px;
             }
         }
         .cta-button {
@@ -65,8 +60,8 @@ const Header = () => {
     return (
         <StyledHeader>
             <div className="header-container">
-                {/*<a href="/"><img src={logo} className="header-logo" alt="GoodJob 全民組工會"></img></a>*/}
-                <LinkButton href="https://goo.gl/forms/eZIWeCtAFCV7aR7G2" alt="馬上開始使用" className="cta-button"> 馬上開始使用 </LinkButton>
+                <a href="/"><img src={logo} className="header-logo" alt="GoodJob 功德無量打卡機"></img></a>
+                <LinkButton href="https://goo.gl/forms/eZIWeCtAFCV7aR7G2" alt="馬上開始使用" className="cta-button"> 開始做功德 </LinkButton>
             </div>
         </StyledHeader>
     );
