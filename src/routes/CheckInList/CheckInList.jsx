@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import update from 'immutability-helper';
 
 import Button from '../../components/Button.component';
 
@@ -47,7 +48,7 @@ class CheckInList extends React.Component {
 
     getCheckIns = () => {
         const key = this.props.params.key;
-        const url = `https://test3.markchen.space/api/check-ins/${key}`;
+        const url = `https://test3.markchen.space/api/users/${key}/check-ins`;
         // Notice, do not use new Date("yyyy-MM-dd"), different browser has different behavior.
         const startDate = newDate(this.state.startDate);
         const endDate = new Date(newDate(this.state.endDate).getTime() + 86400000);
@@ -102,6 +103,27 @@ class CheckInList extends React.Component {
         this.setState({ OTSalary: overTimeSalary });
     }
 
+    deleteCheckIn = (checkInId) => () => {
+        if (window.confirm("你確定要刪除這筆功德嗎？")) {
+            const key = this.props.params.key;
+            const url = `https://test3.markchen.space/api/users/${key}/check-ins/${checkInId}`;
+            axios.delete(url).then(response => {
+                if (response.data.success) {
+                    window.alert("你的功德已經煙消雲散！");
+                    const index = this.state.checkIns.findIndex((checkin) => ( checkin._id === checkInId ));
+                    if (index >= 0) {
+                        const newCheckIns = update(this.state.checkIns, {
+                            $splice: [[index, 1]],
+                        });
+                        this.setState({ checkIns: newCheckIns });
+                    }
+                } else {
+                    window.alert("你的功德捨不得離開你，刪不掉呀");
+                }
+            });
+        }
+    }
+
     renderMenuBar() {
         return (
             <div className="menu-bar">
@@ -142,6 +164,7 @@ class CheckInList extends React.Component {
                             <th> 結束時間 </th>
                             <th> 功德量 </th>
                             <th> 加班費 </th>
+                            <th> 操作 </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -163,6 +186,7 @@ class CheckInList extends React.Component {
                 <td data-th="結束時間">{formatDate(endTime)} {formatTime(endTime)}</td>
                 <td data-th="功德量">{formatDuration(calcTime(endTime.getTime() - startTime.getTime()))}</td>
                 <td data-th="加班費">{this.state.OTSalary ? this.state.OTSalary[index].OTSalary : 0}</td>
+                <td data-th="操作"><Button className="delete-button" onClick={this.deleteCheckIn(key)}>刪除</Button></td>
             </tr>
         );
     }

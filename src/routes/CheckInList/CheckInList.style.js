@@ -106,10 +106,23 @@ const StyledCheckInList = styled.div`
             padding-left: 20px;
         }
 
+        .delete-button {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        &[data-th="操作"] {
+            padding: 8px 5px;
+        }
+
         @media (max-width: ${MEDIA.SM_MAX}px) {
             display: flex !important;
             width: 100%;
             padding: 10px 20px;
+
+            &[data-th="操作"] {
+                padding: 10px 20px;
+            }
 
             &:last-child {
                 border-bottom: 6px solid #eeeeed;
