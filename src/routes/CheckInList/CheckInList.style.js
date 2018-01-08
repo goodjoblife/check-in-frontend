@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { MEDIA } from '../../constants/style.constant';
 
 const StyledCheckInList = styled.div`
+    @media (max-width: 1100px) {
+        padding: 0 35px;
+    }
     @media (max-width: ${MEDIA.SM_MAX}px) {
         padding: 0 35px;
     }
@@ -89,7 +92,9 @@ const StyledCheckInList = styled.div`
     }
 
     .table tbody tr:hover {
-        background-color: rgba(0,0,0,.025);
+        @media (min-width: 1100px) {
+            background-color: rgba(0,0,0,.025);
+        }
     }
 
     .table td {
@@ -146,7 +151,9 @@ const StyledCheckInList = styled.div`
         background-color: #F0F0F0;
         margin-right: 10px;
         &:hover {
-            background-color: #FCD406;
+            @media (min-width: 1100px) {
+                background-color: #FCD406;
+            }
         }
         &:hover, & *:hover {
             cursor: pointer;
@@ -166,6 +173,12 @@ const StyledCheckInList = styled.div`
     .setting-section {
         padding: 20px;
         background-color: white;
+
+        .radio-button label {
+            width: 100%;
+            height: 100%;
+        }
+
         .salary-section {
             display: flex;
             align-items: center;
@@ -173,10 +186,6 @@ const StyledCheckInList = styled.div`
             .salary-input-group {
                 display: flex;
                 align-items: center;
-            }
-            .salary-input-group .radio-button label {
-                width: 100%;
-                height: 100%;
             }
             .salary-input input{
                 width: calc(100% - 30px);

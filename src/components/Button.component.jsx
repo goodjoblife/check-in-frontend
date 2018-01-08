@@ -12,13 +12,17 @@ const StyledButton = styled.button`
     transition: background-color 0.75s ease;
     transition: color 0.25s ease;
     text-decoration: none;
+
     &:hover {
-        background-color: #222;
-        border-color: #FCD406;
-        color: #FCD406;
-        cursor: pointer;
         text-decoration: none;
+        cursor: pointer;
+        @media (min-width: 1100px) {
+            background-color: #222;
+            border-color: #FCD406;
+            color: #FCD406;
+        }
     }
+
 `;
 
 const Button = ({ onClick, children, className }) => {
