@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
+import { MEDIA } from '../../constants/style.constant';
+
 const StyledCheckInList = styled.div`
+    @media (max-width: ${MEDIA.SM_MAX}px) {
+        padding: 0 35px;
+    }
+    @media (max-width: ${MEDIA.XS_MAX}px) {
+        padding: 0 10px;
+    }
+
     input {
         border: 1px solid #FCD406;
         padding: 5px;
@@ -28,11 +37,29 @@ const StyledCheckInList = styled.div`
         margin-bottom: 15px;
         .date-container {
             display: flex;
-
-            .start-date {
-                margin-right: 25px;
+        }
+        .date-picker:first-child {
+            margin-right: 25px;
+        }
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            display: inherit;
+            .date-picker:first-child {
+                margin-right: 0px;
+            }
+            .date-container {
+                display: inherit;
+            }
+            .date-picker {
+                margin-bottom: 15px;
+            }
+            .date-picker input {
+                width: 100%;
+            }
+            .search-btn {
+                width: 100%;
             }
         }
+
     }
 
     .section {
@@ -55,6 +82,10 @@ const StyledCheckInList = styled.div`
         &:first-child {
             padding-left: 20px;
         }
+
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            display: none;
+        }
     }
 
     .table tbody tr:hover {
@@ -73,6 +104,28 @@ const StyledCheckInList = styled.div`
 
         &:first-child {
             padding-left: 20px;
+        }
+
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            display: flex !important;
+            width: 100%;
+            padding: 10px 20px;
+
+            &:last-child {
+                border-bottom: 6px solid #eeeeed;
+            }
+
+            &::before {
+                content: attr(data-th);
+                flex: 0 0 100px;
+                margin-right: 10px;
+                width: 100px;
+                text-align: left;
+                font-size: .95em;
+                line-height: 1.2em;
+                letter-spacing: 0.05em;
+                color: #777;
+            }
         }
     }
 
@@ -104,16 +157,80 @@ const StyledCheckInList = styled.div`
             display: flex;
             align-items: center;
 
+            .salary-input-group {
+                display: flex;
+                align-items: center;
+            }
+            .salary-input-group .radio-button label {
+                width: 100%;
+                height: 100%;
+            }
+            .salary-input input{
+                width: calc(100% - 30px);
+                text-align: right;
+            }
+            .hourly-wage {
+                text-align: right;
+            }
             .money-unit {
                 margin-left: 5px;
             }
         }
+
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            .salary-section {
+                display: inherit;
+                > label {
+                    display: block;
+                }
+                .salary-input-group {
+                    display: inherit;
+                    .radio-button {
+                        text-align: center;
+                        margin-bottom: 5px;
+                    }
+                }
+                .salary-input {
+                    margin-bottom: 15px;
+                }
+            }
+        }
     }
+
+    .day-off-section {
+        .day-off-group {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            .day-off-group {
+                display: inherit;
+            }
+            .day-off-group > label {
+                display: block;
+            }
+            .day-off-group .radio-button {
+                margin-bottom: 5px;
+                text-align: center;
+            }
+        }
+    }
+
     .calc-container {
+        display: flex;
         justify-content: flex-end;
         button {
             padding-top: 10px;
             padding-bottom: 10px;
+        }
+        margin-top: 15px;
+
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            display: block;
+            button {
+                width: 100%;
+            }
         }
     }
 `;

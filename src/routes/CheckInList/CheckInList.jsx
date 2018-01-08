@@ -106,7 +106,7 @@ class CheckInList extends React.Component {
         return (
             <div className="menu-bar">
                 <div className="date-container">
-                    <div className="start-date date-picker">
+                    <div className="date-picker">
                         <label>起始日：</label>
                         <input
                             type="date"
@@ -116,7 +116,7 @@ class CheckInList extends React.Component {
                         />
 
                     </div>
-                    <div className="end-date date-picker">
+                    <div className="date-picker">
                         <label>結算日：</label>
                         <input
                             type="date"
@@ -159,10 +159,10 @@ class CheckInList extends React.Component {
         const { startTime, endTime } = checkIn;
         return (
             <tr key={key}>
-                <td>{formatDate(startTime)} {formatTime(startTime)}</td>
-                <td>{formatDate(endTime)} {formatTime(endTime)}</td>
-                <td>{formatDuration(calcTime(endTime.getTime() - startTime.getTime()))}</td>
-                <td>{this.state.OTSalary ? this.state.OTSalary[index].OTSalary : 0}</td>
+                <td data-th="起始時間">{formatDate(startTime)} {formatTime(startTime)}</td>
+                <td data-th="結束時間">{formatDate(endTime)} {formatTime(endTime)}</td>
+                <td data-th="功德量">{formatDuration(calcTime(endTime.getTime() - startTime.getTime()))}</td>
+                <td data-th="加班費">{this.state.OTSalary ? this.state.OTSalary[index].OTSalary : 0}</td>
             </tr>
         );
     }
@@ -188,20 +188,22 @@ class CheckInList extends React.Component {
     renderSalarySection() {
         return (
             <div className="salary-section form-group flex flex-align-center flex-space-between">
-                <div className="flex flex-align-center">
-                <label> 請輸入你的底薪以計算加班費：</label>
-                {this.renderSalaryTypeButton('month', '月薪')}
-                {this.renderSalaryTypeButton('day', '日薪')}
-                {this.renderSalaryTypeButton('hour', '時薪')}
-                <input
-                    type="number"
-                    min="0"
-                    value={this.state.salary}
-                    onChange={(e) => this.setState({ salary: e.target.value })}
-                />
-                <span className="money-unit">元</span>
+                <div className="salary-input-group">
+                    <label> 請輸入你的底薪以計算加班費：</label>
+                    {this.renderSalaryTypeButton('month', '月薪')}
+                    {this.renderSalaryTypeButton('day', '日薪')}
+                    {this.renderSalaryTypeButton('hour', '時薪')}
+                    <div className="salary-input">
+                        <input
+                            type="number"
+                            min="0"
+                            value={this.state.salary}
+                            onChange={(e) => this.setState({ salary: e.target.value })}
+                        />
+                        <span className="money-unit">元</span>
+                    </div>
                 </div>
-                <div>
+                <div className="hourly-wage">
                     <label>每小時工資：</label><span>{this.calcHourlyWage()}</span>
                 </div>
             </div>
@@ -233,13 +235,13 @@ class CheckInList extends React.Component {
         const dayChar = ['一', '二', '三', '四', '五', '六', '日'];
         const dayNum = ['1', '2', '3', '4', '5', '6', '0'];
         return (
-            <div>
+            <div className="day-off-section">
                 <label className="form-group">請設定你的休息日、例假日：</label>
-                <div className="flex flex-align-center">
+                <div className="day-off-group">
                     <label>例假日：</label>
                     {dayNum.map((n, index) => (this.renderWeekDayButton('routine-day-off', n, dayChar[index], 'routineDayOff')))}
                 </div>
-                <div className="flex flex-align-center">
+                <div className="day-off-group">
                     <label>休息日：</label>
                     {dayNum.map((n, index) => (this.renderWeekDayButton('rest-day-off', n, dayChar[index], 'restDayOff')))}
                 </div>
@@ -258,7 +260,7 @@ class CheckInList extends React.Component {
                 <div className="setting-section section">
                     {this.renderSalarySection()}
                     {this.renderDayOffSection()}
-                    <div className="flex calc-container">
+                    <div className="calc-container">
                         <Button className="btn btn-default" onClick={this.calcOverTimeSalary}>重新計算加班費</Button>
                     </div>
                 </div>

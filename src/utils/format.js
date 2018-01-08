@@ -11,7 +11,7 @@ export function pad(n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-export function formatDate(date, divider='/') {
+export function formatDate(date, divider='-') {
     const yyyy = date.getFullYear();
     const mm = date.getMonth() + 1;
     const dd = date.getDate();
@@ -21,7 +21,7 @@ export function formatDate(date, divider='/') {
 export function formatTime(date) {
     const hh = date.getHours();
     const mm = date.getMinutes();
-    return `${hh} 點 ${mm} 分`;
+    return `${hh}:${mm}`;
 }
 
 export function formatDuration(timeObj) {
