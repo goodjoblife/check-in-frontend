@@ -77,6 +77,12 @@ class CheckInList extends React.Component {
     }
 
     handleWeekDayButton = (field) => (event) => {
+        if (
+            (field === 'routineDayOff' && this.state.restDayOff === event.target.value) ||
+            (field === 'restDayOff' && this.state.routineDayOff === event.target.value)
+        ) {
+            return;
+        }
         this.setState({ [field]: event.target.value });
     }
 
