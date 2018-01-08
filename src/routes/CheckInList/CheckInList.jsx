@@ -17,6 +17,8 @@ import { calcOverTimeSalary } from '../../utils/overTimeSalary';
 
 import StyledCheckInList from './CheckInList.style';
 
+import { apiServerUrl } from '../../constants/config.constant';
+
 class CheckInList extends React.Component {
     static propTypes = {
         params: PropTypes.oneOfType([PropTypes.object]).isRequired,
@@ -48,7 +50,7 @@ class CheckInList extends React.Component {
 
     getCheckIns = () => {
         const key = this.props.params.key;
-        const url = `https://test3.markchen.space/api/users/${key}/check-ins`;
+        const url = `${apiServerUrl}/api/users/${key}/check-ins`;
         // Notice, do not use new Date("yyyy-MM-dd"), different browser has different behavior.
         const startDate = newDate(this.state.startDate);
         const endDate = new Date(newDate(this.state.endDate).getTime() + 86400000);
@@ -112,7 +114,7 @@ class CheckInList extends React.Component {
     deleteCheckIn = (checkInId) => () => {
         if (window.confirm("你確定要刪除這筆功德嗎？")) {
             const key = this.props.params.key;
-            const url = `https://test3.markchen.space/api/users/${key}/check-ins/${checkInId}`;
+            const url = `${apiServerUrl}/api/users/${key}/check-ins/${checkInId}`;
             axios.delete(url).then(response => {
                 if (response.data.success) {
                     window.alert("你的功德已經煙消雲散！");

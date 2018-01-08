@@ -5,6 +5,7 @@ import LinkButton from './LinkButton.component';
 import logo from '../assets/logo-and-name.png';
 
 import { MEDIA } from '../constants/style.constant';
+import { botUrl } from '../constants/config.constant';
 
 const StyledHeader = styled.div`
     background-color: #222;
@@ -60,8 +61,8 @@ const Header = () => {
     return (
         <StyledHeader>
             <div className="header-container">
-                <a href="/"><img src={logo} className="header-logo" alt="GoodJob 功德無量打卡機"></img></a>
-                <LinkButton href="https://goo.gl/forms/eZIWeCtAFCV7aR7G2" alt="馬上開始使用" className="cta-button"> 開始做功德 </LinkButton>
+                <a href={`${process.env.PUBLIC_URL}/`}><img src={logo} className="header-logo" alt="GoodJob 功德無量打卡機"></img></a>
+                <LinkButton href={botUrl} alt="馬上開始使用" className="cta-button"> 開始做功德 </LinkButton>
             </div>
         </StyledHeader>
     );
