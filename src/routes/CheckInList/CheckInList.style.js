@@ -147,6 +147,34 @@ const StyledCheckInList = styled.div`
         }
     }
 
+    .table .ot-salary-total td {
+        border-top: 5px solid #ededed;
+        font-size: 18px;
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            border: none;
+            &:first-child, &:last-child {
+                display: none !important;
+            }
+        }
+    }
+
+    .table .ot-salary-total {
+        @media (max-width: ${MEDIA.SM_MAX}px) {
+            border: 3px solid #FCD406;
+        }
+    }
+
+    .table .ot-salary-hint {
+        display: none;
+
+        &.re-calculate {
+            display: inherit;
+            color: red;
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+
     .radio-button {
         background-color: #F0F0F0;
         margin-right: 10px;

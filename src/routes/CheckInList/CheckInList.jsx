@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import update from 'immutability-helper';
+import { Element as ScrollElement, scroller } from 'react-scroll';
 
 import Button from '../../components/Button.component';
 
@@ -41,6 +42,7 @@ class CheckInList extends React.Component {
             routineDayOff: '0', // Sunday
             restDayOff: '6', // Saturday
             OTSalary: null,
+            reCalculated: false,
         }
     }
 
@@ -111,6 +113,13 @@ class CheckInList extends React.Component {
         this.setState({ OTSalary: overTimeSalary });
     }
 
+    calcTotalOTSalary = () => {
+        if (!this.state.OTSalary) { return 0; }
+        else {
+            return this.state.OTSalary.reduce((accu, curr) => (accu + curr.OTSalary), 0);
+        }
+    }
+
     deleteCheckIn = (checkInId) => () => {
         if (window.confirm("你確定要刪除這筆功德嗎？")) {
             const key = this.props.params.key;
@@ -179,6 +188,15 @@ class CheckInList extends React.Component {
                         {checkIns.map((checkIn, index) => {
                             return this.renderCheckInRow(checkIn, index);
                         })}
+                        <tr className="ot-salary-total">
+                            <td colSpan="3">加班費總計</td>
+                            <td data-th="加班費總計">
+                                <ScrollElement name="ot-salary-total"></ScrollElement>
+                                {this.calcTotalOTSalary()}
+                                <span className={`ot-salary-hint ${this.state.reCalculated  ? 're-calculate': ''}`}>&nbsp;已重新計算</span>
+                            </td>
+                            <td />
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -293,7 +311,20 @@ class CheckInList extends React.Component {
                     {this.renderSalarySection()}
                     {this.renderDayOffSection()}
                     <div className="calc-container">
-                        <Button className="btn btn-default" onClick={this.calcOverTimeSalary}>重新計算加班費</Button>
+                        <Button className="btn btn-default" onClick={
+                            (event) => {
+                                this.calcOverTimeSalary();
+                                this.setState({ reCalculated: true });
+                                scroller.scrollTo('ot-salary-total', {
+                                    duration: 1500,
+                                    delay: 100,
+                                    smooth: true,
+                                    offset: -500, // Scrolls to element + 50 pixels down the page
+                                });
+                            }
+                        }>
+                            重新計算加班費
+                        </Button>
                     </div>
                 </div>
             </StyledCheckInList>
