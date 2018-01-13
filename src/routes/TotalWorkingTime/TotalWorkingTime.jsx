@@ -10,7 +10,7 @@ import LinkButton from '../../components/LinkButton.component';
 import docSVG from '-!svg-react-loader!../../assets/doc.svg';
 /* eslint-enable import/no-webpack-loader-syntax */
 
-import { calcTime, convertTimeZone } from '../../utils/date';
+import { calcTime, convertTimeZone, getYearMonthDay } from '../../utils/date';
 import { apiEndpoint, botMessengerUrl } from '../../constants/config.constant';
 
 class TotalWorkingTime extends Component {
@@ -55,26 +55,41 @@ class TotalWorkingTime extends Component {
     const url2 = `${apiEndpoint}/api/check-ins/working`;
 
     axios.get(url2).then(response => {
-      const { accuHrs, accuMins, accuSecs } = this.calcWorkTimeByStartTime(response.data);
+      const { validCount, accuTime }  = this.calcWorkTimeByStartTime(response.data);
+      const { accuHrs, accuMins, accuSecs } = accuTime;
       this.setState({
         accuHrs: this.state.accuHrs + accuHrs,
         accuMins: this.state.accuMins + accuMins,
         accuSecs: this.state.accuSecs + accuSecs,
-        nCurrentWorking: response.data.length,
+        nCurrentWorking: validCount,
       })
     });
   }
 
   calcWorkTimeByStartTime = (checkIns) => {
-    const nowTime = new Date().getTime();
-    return checkIns.reduce((accuTime, checkIn) => {
-      const { hrs, mins, secs } = calcTime(nowTime - new Date(checkIn.startTime).getTime());
-      return {
-        accuHrs: accuTime.accuHrs + hrs,
-        accuMins: accuTime.accuMins + mins,
-        accuSecs: accuTime.accuSecs + secs,
+    const now = convertTimeZone(new Date(), 8);
+    const nowTime = now.getTime();
+    const { year: nowYear, month: nowMonth, day: nowDay } = getYearMonthDay(now);
+    let validCount = 0;
+    const accuTime = checkIns.reduce((accuTime, checkIn) => {
+      const checkInStartTime = convertTimeZone(new Date(checkIn.startTime), 8);
+      const { year: cYear, month: cMonth, day: cDay } = getYearMonthDay(checkInStartTime);
+
+      // 只累計該天開始打卡的打卡記錄時間，如果打卡時間早於今天，整個不計入計算。
+      if (cYear === nowYear && cMonth === nowMonth && cDay === nowDay) {
+        validCount += 1;
+        const { hrs, mins, secs } = calcTime(nowTime - checkInStartTime.getTime());
+        return {
+          accuHrs: accuTime.accuHrs + hrs,
+          accuMins: accuTime.accuMins + mins,
+          accuSecs: accuTime.accuSecs + secs,
+        };
+      } else {
+        return accuTime;
       }
     }, { accuHrs: 0, accuMins: 0, accuSecs: 0 });
+
+    return { validCount, accuTime };
   }
 
   render() {

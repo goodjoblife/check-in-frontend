@@ -49,3 +49,11 @@ export function convertTimeZone(date, offset) {
 
     return nd;
 }
+
+export function getYearMonthDay(date) {
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate(),
+    };
+}
