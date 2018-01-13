@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { pad } from '../utils/format';
 
 const StyledWorkingHours = styled.div`
     padding: 65px 35px 60px 40px;
     text-align: center;
-    .hrs-num {
+    .accuHrs-num {
         font-size: 42pt;
         margin-right: 5px;
     }
-    .mins-num, .secs-num {
+    .accuMins-num, .accuSecs-num {
         font-size: 36pt;
         margin-right: 5px;
     }
-    .secs-num {
+    .accuSecs-num {
         margin-left: 20px;
     }
     .flex {
@@ -23,53 +24,81 @@ const StyledWorkingHours = styled.div`
 `;
 
 class WorkingHours extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state =  {
-            hrs: 0,
-            mins: 0,
-            secs: 0,
-            miniSecs: 0,
-            nCurrentWorking: 37,
-        }
-    }
+  static propTypes = {
+    accuHrs: PropTypes.number.isRequired,
+    accuMins: PropTypes.number.isRequired,
+    accuSecs: PropTypes.number.isRequired,
+    nCurrentWorking: PropTypes.number.isRequired,
+  }
 
-    componentDidMount(){
-        this.timer = this.setTimer(100);
+  constructor(props) {
+    super(props);
+    this.state =  {
+      accuHrs: 0,
+      accuMins: 0,
+      accuSecs: 0,
+      accuMiliSecs: 0,
+      nCurrentWorking: 0,
     }
+  }
 
-    setTimer(interval) {
-        return setInterval(() => {
-            const offsetMiniSecs = interval * this.state.nCurrentWorking;
-            const { hrs, mins, secs, miniSecs } = this.state;
-            const newTime = this.calcTime(hrs, mins, secs, miniSecs, offsetMiniSecs);
-            this.setState(newTime);
-        }, interval)
+  componentWillReceiveProps(nextProps) {
+    const { accuHrs, accuMins, accuSecs, nCurrentWorking } = nextProps;
+    if (this.timer) {
+      window.clearInterval(this.timer);
     }
+    this.setState({
+      accuHrs,
+      accuMins,
+      accuSecs,
+      nCurrentWorking,
+      accuMiliSecs: 0,
+    });
+  }
 
-    calcTime(hrs, mins, secs, miniSecs, offsetMiniSecs) {
-        miniSecs = miniSecs + offsetMiniSecs;
-        secs = secs + Math.floor(miniSecs / 1000);
-        miniSecs = miniSecs % 1000;
-        mins = mins + Math.floor(secs / 60);
-        secs = secs % 60;
-        hrs = hrs + Math.floor(mins / 60);
-        mins = mins % 60;
-        return { hrs, mins, secs, miniSecs };
+  componentDidMount(){
+    this.setTimer(200);
+  }
+
+  componentDidUpdate() {
+    this.setTimer(200);
+  }
+
+  setTimer(interval) {
+    if (this.timer) {
+      window.clearInterval(this.timer);
     }
+    this.timer = setInterval(() => {
+      const offsetMiliSecs = interval * this.state.nCurrentWorking;
+      const { accuHrs, accuMins, accuSecs, accuMiliSecs } = this.state;
+      const newTime = this.calcTime(accuHrs, accuMins, accuSecs, accuMiliSecs, offsetMiliSecs);
+      this.setState(newTime);
+    }, interval);
+  }
+
+  calcTime(accuHrs, accuMins, accuSecs, accuMiliSecs, offsetMiliSecs) {
+    let newAccuMiliSecs = accuMiliSecs + offsetMiliSecs;
+    let newAccuSecs = accuSecs + Math.floor(newAccuMiliSecs / 1000);
+    newAccuMiliSecs = newAccuMiliSecs % 1000;
+    let newAccuMins = accuMins + Math.floor(newAccuSecs / 60);
+    newAccuSecs = newAccuSecs % 60;
+    let newAccuHrs = accuHrs + Math.floor(newAccuMins / 60);
+    newAccuMins = newAccuMins % 60;
+    return { accuHrs: newAccuHrs, accuMins: newAccuMins, accuSecs: newAccuSecs, accuMiliSecs: newAccuMiliSecs };
+  }
 
     render() {
-        const { hrs, mins, secs } = this.state;
+        const { accuHrs, accuMins, accuSecs } = this.state;
         return (
             <StyledWorkingHours>
                 <div>
-                    <span className="hrs-num">{hrs}</span>
+                    <span className="accuHrs-num">{accuHrs}</span>
                     <span>時</span>
                 </div>
                 <div>
-                    <span className="mins-num">{pad(mins, 2)}</span>
+                    <span className="accuMins-num">{pad(accuMins, 2)}</span>
                     <span>分</span>
-                    <span className="secs-num">{pad(secs, 2)}</span>
+                    <span className="accuSecs-num">{pad(accuSecs, 2)}</span>
                     <span>秒</span>
                 </div>
             </StyledWorkingHours>
