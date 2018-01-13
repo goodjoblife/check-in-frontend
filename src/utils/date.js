@@ -30,3 +30,20 @@ export function newDate(dateStr) {
     const { year, month, day } = parseDate(dateStr);
     return new Date(year, month - 1, day);
 }
+
+/**
+ * function to calculate local time in given UTC offset
+ * reference: https://stackoverflow.com/questions/10087819/convert-date-to-another-timezone-in-javascript
+ */
+export function convertTimeZone(date, offset) {
+    // convert to msec
+    // add local time zone offset
+    // get UTC time in msec
+    var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+
+    // create new Date object for different city
+    // using supplied offset
+    var nd = new Date(utc + (3600000 * offset));
+
+    return nd;
+}

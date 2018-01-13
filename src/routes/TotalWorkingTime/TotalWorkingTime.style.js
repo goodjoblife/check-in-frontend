@@ -7,6 +7,10 @@ const StyledMain = styled.div`
     margin: auto;
     padding: 0 50px;
 
+    hr {
+        margin-top: 75px;
+    }
+
     .title {
         color: #fcd406;
         text-align: center;
@@ -38,11 +42,32 @@ const StyledMain = styled.div`
         text-shadow: 0 0 4px #fcd406;
     }
 
-    .call-to-action {
-        margin-top: 100px;
+    .cta-text {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .cta-button-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .leave-your-data-text {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .leave-your-data {
         margin-bottom: 50px;
         display: flex;
         justify-content: center;
+    }
+
+    .end-text {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 36px;
+        color: #fcd406;
     }
 `;
 
