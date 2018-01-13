@@ -34,6 +34,8 @@ export function newDate(dateStr) {
 /**
  * function to calculate local time in given UTC offset
  * reference: https://stackoverflow.com/questions/10087819/convert-date-to-another-timezone-in-javascript
+ *
+ * 用途：假如使用者系統設定不在時區 UTC+8，convertTimeZone(date, 8) 會轉換成 UTC+8 的時間，讓取得年月日的時候正確。
  */
 export function convertTimeZone(date, offset) {
     // convert to msec
