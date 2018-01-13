@@ -3,4 +3,4 @@ if (tmpStr.charAt(tmpStr.length - 1) === '/') {
     tmpStr = tmpStr.slice(0, tmpStr.length - 1);
 }
 export const apiEndpoint = tmpStr;
-export const botMessengerUrl = process.env.REACT_APP_BOT_MESSENGER_URL || 'https://www.messenger.com/t/check.in.machine.test';
+export const botMessengerUrl = process.env.REACT_APP_BOT_MESSENGER_URL || 'https://m.me/check.in.machine.test';
