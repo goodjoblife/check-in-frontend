@@ -40,11 +40,13 @@ class TotalWorkingTime extends Component {
     const url = `${apiEndpoint}/api/check-ins/total-work-time`;
     axios.get(url, { params }).then(response => {
       const { accuHrs, accuMins, accuSecs } = response.data;
-      this.setState({
-        accuHrs: this.state.accuHrs + parseInt(accuHrs, 10),
-        accuMins: this.state.accuMins + parseInt(accuMins, 10),
-        accuSecs: this.state.accuSecs + parseInt(accuSecs, 10),
-      });
+      if (accuHrs && accuMins && accuSecs) {
+        this.setState({
+          accuHrs: this.state.accuHrs + parseInt(accuHrs, 10),
+          accuMins: this.state.accuMins + parseInt(accuMins, 10),
+          accuSecs: this.state.accuSecs + parseInt(accuSecs, 10),
+        });
+      }
     });
   }
 
