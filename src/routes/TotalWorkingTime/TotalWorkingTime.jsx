@@ -96,7 +96,7 @@ class TotalWorkingTime extends Component {
     const { accuHrs, accuMins, accuSecs, nCurrentWorking } = this.state;
     return (
       <StyledTotalWorkingTime>
-        <h1 className="title">
+        <h1 className="marg-b-60">
           今天，全台灣的勞工已經製造了...
         </h1>
         <div className="circle">

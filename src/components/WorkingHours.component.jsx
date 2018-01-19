@@ -2,17 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { pad } from '../utils/format';
+import { MEDIA } from '../constants/style.constant';
 
 const StyledWorkingHours = styled.div`
     padding: 65px 35px 60px 40px;
     text-align: center;
+
+    @media (max-width: ${MEDIA.XS_MAX}px) {
+      padding: 55px 35px 60px 40px;
+    }
     .accuHrs-num {
         font-size: 42pt;
         margin-right: 5px;
+        @media (max-width: ${MEDIA.XS_MAX}px) {
+          font-size: 32pt;
+        }
     }
     .accuMins-num, .accuSecs-num {
         font-size: 36pt;
         margin-right: 5px;
+        @media (max-width: ${MEDIA.XS_MAX}px) {
+          font-size: 32pt;
+        }
     }
     .accuSecs-num {
         margin-left: 20px;

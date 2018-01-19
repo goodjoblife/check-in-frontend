@@ -1,19 +1,29 @@
 import styled from 'styled-components';
 
+import { MEDIA } from '../../constants/style.constant';
+
 const StyledMain = styled.div`
     background-color: #222;
     color: white;
     max-width: 1100px;
     margin: auto;
     padding: 0 50px;
+    text-align: center;
+
+    @media (max-width: ${MEDIA.XS_MAX}px) {
+        padding: 0 20px;
+    }
 
     hr {
         margin-top: 75px;
     }
 
-    .title {
+    h1 {
         color: #fcd406;
         text-align: center;
+    }
+
+    .marg-b-60 {
         margin-bottom: 60px;
     }
 
@@ -31,6 +41,10 @@ const StyledMain = styled.div`
         border-radius: 50%;
         box-shadow: 0 0 150px #fcd406, inset 0 0 20px #fcd406;
         -webkit-animation: pulse 2s linear 1s infinite;
+        @media (max-width: ${MEDIA.XS_MAX}px) {
+            width: 250px;
+            height: 250px;
+        }
     }
 
     .circle p {
