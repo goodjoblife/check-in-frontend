@@ -38,6 +38,10 @@ const StyledHeader = styled.div`
             @media (max-width: ${MEDIA.SM_MAX}px) {
                 height: 55px;
             }
+            @media (max-width: ${MEDIA.XS_MAX}px) {
+                height: 46px;
+                margin-top: 5px;
+            }
         }
         .cta-button {
             margin-top: 8px;
@@ -50,7 +54,7 @@ const StyledHeader = styled.div`
             }
             @media (max-width: ${MEDIA.XS_MAX}px) {
                 margin-top: 8px;
-                padding: 7px 10px;
+                padding: 6px 8px;
                 font-size: 14px;
             }
         }
