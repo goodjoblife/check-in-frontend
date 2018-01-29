@@ -5,6 +5,7 @@ import axios from 'axios';
 import update from 'immutability-helper';
 import { Element as ScrollElement, scroller } from 'react-scroll';
 
+import StyledTable from '../../styles/table.style';
 import Button from '../../components/Button.component';
 
 import {
@@ -174,7 +175,7 @@ class CheckInList extends React.Component {
         if (!checkIns) { return null; }
         return (
             <div className="section">
-                <table className="table">
+                <StyledTable className="table">
                     <thead>
                         <tr>
                             <th> 起始時間 </th>
@@ -198,7 +199,7 @@ class CheckInList extends React.Component {
                             <td />
                         </tr>
                     </tbody>
-                </table>
+                </StyledTable>
             </div>
         );
     }
@@ -212,7 +213,7 @@ class CheckInList extends React.Component {
                 <td data-th="結束時間">{formatDate(endTime)} {formatTime(endTime)}</td>
                 <td data-th="功德量">{formatDuration(calcTime(endTime.getTime() - startTime.getTime()))}</td>
                 <td data-th="加班費">{this.state.OTSalary ? this.state.OTSalary[index].OTSalary : 0}</td>
-                <td data-th="操作"><Button className="delete-button" onClick={this.deleteCheckIn(key)}>刪除</Button></td>
+                <td data-th="操作"><Button className="button" onClick={this.deleteCheckIn(key)}>刪除</Button></td>
             </tr>
         );
     }
